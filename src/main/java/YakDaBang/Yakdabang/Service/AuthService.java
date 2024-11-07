@@ -2,7 +2,6 @@ package YakDaBang.Yakdabang.Service;
 
 import YakDaBang.Yakdabang.domain.dto.request.LoginDto;
 import YakDaBang.Yakdabang.domain.dto.request.SignUpRequest;
-import YakDaBang.Yakdabang.domain.dto.request.UserLoginDto;
 import YakDaBang.Yakdabang.domain.dto.response.JwtTokenDto;
 import YakDaBang.Yakdabang.domain.dto.type.ERole;
 import YakDaBang.Yakdabang.domain.entity.User;
@@ -14,8 +13,6 @@ import YakDaBang.Yakdabang.utility.PasswordEncoder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 /**
  * packageName   : YakDaBang.Yakdabang.Service
@@ -66,7 +63,7 @@ public class AuthService {
     }
 
     @Transactional
-    public JwtTokenDto signUp(SignUpRequest request) {
+    public String signUp(SignUpRequest request) {
 
         // 이메일 중복 체크
         if(userRepository.findByEmail(request.getEmail()).isPresent()){
@@ -77,9 +74,9 @@ public class AuthService {
         userRepository.save(new_user);
         new_user.setPassword(passwordEncoder.encode(request.getPassword()));
 
-        JwtTokenDto jwtTokenDto = jwtUtil.generateTokens(new_user.getId(), ERole.USER);
-        new_user.setRefreshToken(jwtTokenDto.refreshToken());
+        /*JwtTokenDto jwtTokenDto = jwtUtil.generateTokens(new_user.getId(), ERole.USER);
+        new_user.setRefreshToken(jwtTokenDto.refreshToken());*/
 
-        return jwtTokenDto;
+        return "회원가입이 완료되었습니다. 로그인을 진행해주세요.";
     }
 }

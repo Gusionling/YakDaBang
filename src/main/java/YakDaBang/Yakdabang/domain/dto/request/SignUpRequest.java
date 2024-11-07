@@ -22,7 +22,7 @@ public class SignUpRequest {
     private Long providerId;
 
     @NotBlank
-    @Schema(description = "이메일", example = "example.google.com")
+    @Schema(description = "이메일", example = "example@google.com")
     private String email;
 
     @NotBlank

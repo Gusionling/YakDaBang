@@ -4,10 +4,8 @@ import YakDaBang.Yakdabang.Service.AuthService;
 import YakDaBang.Yakdabang.domain.dto.common.ResponseDto;
 import YakDaBang.Yakdabang.domain.dto.request.LoginDto;
 import YakDaBang.Yakdabang.domain.dto.request.SignUpRequest;
-import YakDaBang.Yakdabang.domain.dto.request.UserLoginDto;
 import YakDaBang.Yakdabang.global.constants.Constants;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,7 +41,6 @@ public class AuthController {
     public ResponseDto<?> signUp(@RequestBody SignUpRequest request) {
 
         return ResponseDto.ok(authService.signUp(request));
-
     }
 
     @PostMapping("/login")
