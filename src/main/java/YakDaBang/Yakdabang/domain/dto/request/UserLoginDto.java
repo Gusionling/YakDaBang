@@ -15,6 +15,7 @@ import lombok.Builder;
 public record UserLoginDto(
         @NotNull(message = "providerId는 빈값이 될 수 없습니다.")
         @JsonProperty("providerId") @Schema(description = "프로바이더 아이디", example = "203912941")
-        Long providerId
+        Long password
+
 ) {
 }

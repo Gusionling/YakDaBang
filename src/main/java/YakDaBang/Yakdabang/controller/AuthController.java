@@ -2,6 +2,7 @@ package YakDaBang.Yakdabang.controller;
 
 import YakDaBang.Yakdabang.Service.AuthService;
 import YakDaBang.Yakdabang.domain.dto.common.ResponseDto;
+import YakDaBang.Yakdabang.domain.dto.request.LoginDto;
 import YakDaBang.Yakdabang.domain.dto.request.SignUpRequest;
 import YakDaBang.Yakdabang.domain.dto.request.UserLoginDto;
 import YakDaBang.Yakdabang.global.constants.Constants;
@@ -28,21 +29,30 @@ public class AuthController {
 
     private final AuthService authService;
 
-    @PostMapping("/login")
-    @Operation(summary = "로그인", description = "로그인")
+    /*@PostMapping("/login")
     @Schema(name = "login", description = "로그인")
     public ResponseDto<?> login(@RequestBody UserLoginDto userloginDto) {
         return ResponseDto.ok(authService.login(userloginDto));
-    }
+    }*/
 
     @Operation(
             summary = "회원가입",
-            description = "회원가입 후 토큰을 반환합니다. 카카오 로그인인 경우는 카카오 인증을 먼저 받고 실행해주세요 platform은 kakao혹은 general을 입력해주세요"
+            description = "이메일을 통한 회원가입입니다. "
     )
     @PostMapping("/sign-up")
     public ResponseDto<?> signUp(@RequestBody SignUpRequest request) {
 
         return ResponseDto.ok(authService.signUp(request));
 
+    }
+
+    @PostMapping("/login")
+    @Operation(
+            summary = "로그인",
+            description = "로그인"
+    )
+    public ResponseDto<?> login(@RequestBody LoginDto loginDto) {
+
+        return ResponseDto.ok(authService.login(loginDto));
     }
 }
