@@ -6,12 +6,14 @@ import YakDaBang.Yakdabang.global.exception.ErrorCode;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
+@Slf4j
 @Schema(name = "ResponseDto", description = "API 응답 DTO")
 public record ResponseDto<T>(@JsonIgnore HttpStatus httpStatus,
                              @Schema(name = "success", description = "API 호출 성공 여부")

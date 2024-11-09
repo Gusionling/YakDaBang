@@ -3,7 +3,9 @@ package YakDaBang.Yakdabang.domain.dto.common;
 import YakDaBang.Yakdabang.global.exception.ErrorCode;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
 
+@Getter
 public class ExceptionDto {
     @Schema(name = "code", description = "에러 코드")
     @NotNull
