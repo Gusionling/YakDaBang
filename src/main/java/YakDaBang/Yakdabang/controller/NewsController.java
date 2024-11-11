@@ -1,12 +1,13 @@
 package YakDaBang.Yakdabang.controller;
 
+import YakDaBang.Yakdabang.Service.ChatGptService;
 import YakDaBang.Yakdabang.domain.dto.common.ResponseDto;
+import YakDaBang.Yakdabang.domain.dto.request.ChatCompletionGptRequest;
 import YakDaBang.Yakdabang.global.constants.Constants;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * packageName   : YakDaBang.Yakdabang.controller
@@ -18,7 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(Constants.API_PREFIX + "/news")
 @Tag(name = "News", description = "뉴스 정보를 받아오는 API")
+@RequiredArgsConstructor
 public class NewsController {
+
+    private final ChatGptService chatService;
 
     @Operation(
             summary = "검색어로 뉴스를 받아옵니다.",
@@ -46,10 +50,11 @@ public class NewsController {
             summary = "검색어의 뉴스들의 긍정, 부정성을 판단하고 받은 약의 효능을 보여줄 수 있는 생활 습관 추천",
             description = "GPT야 도와줘....! 너만 믿을게"
     )
-    @GetMapping("/gpt")
-    public ResponseDto<?> searchByGPT(){
-
-        return ResponseDto.ok("뉴스를 검색합니다.");
+    @PostMapping("/completion/chat")
+    public ResponseDto<?> searchByGPT(
+            final @RequestBody ChatCompletionGptRequest request
+    ) {
+        return ResponseDto.ok(chatService.completionChat(request));
     }
 
 
