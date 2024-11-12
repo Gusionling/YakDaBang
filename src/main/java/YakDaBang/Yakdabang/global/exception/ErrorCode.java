@@ -11,6 +11,7 @@ public enum ErrorCode {
 
     // Conflict Error
     DUPLICATE_EMAIL(40900, HttpStatus.CONFLICT, "이미 존재하는 이메일입니다."),
+    PARSE_ERROR(40901, HttpStatus.CONFLICT, "GPT 응답의 포멧이 예상과 다르게 나와 파싱에러가 발생했습니다."),
 
     // Method Not Allowed Error
     METHOD_NOT_ALLOWED(40500, HttpStatus.METHOD_NOT_ALLOWED, "지원하지 않는 HTTP 메소드입니다."),

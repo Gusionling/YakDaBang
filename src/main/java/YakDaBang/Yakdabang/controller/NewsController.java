@@ -2,12 +2,18 @@ package YakDaBang.Yakdabang.controller;
 
 import YakDaBang.Yakdabang.Service.ChatGptService;
 import YakDaBang.Yakdabang.domain.dto.common.ResponseDto;
+import YakDaBang.Yakdabang.domain.dto.request.ArticleDto;
 import YakDaBang.Yakdabang.domain.dto.request.ChatCompletionGptRequest;
+import YakDaBang.Yakdabang.domain.dto.response.GradeResponse;
 import YakDaBang.Yakdabang.global.constants.Constants;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * packageName   : YakDaBang.Yakdabang.controller
@@ -50,11 +56,30 @@ public class NewsController {
             summary = "검색어의 뉴스들의 긍정, 부정성을 판단하고 받은 약의 효능을 보여줄 수 있는 생활 습관 추천",
             description = "GPT야 도와줘....! 너만 믿을게"
     )
-    @PostMapping("/completion/chat")
-    public ResponseDto<?> searchByGPT(
+    @PostMapping("/completion/simpleChat")
+    public ResponseDto<?> easyChatByGPT(
             final @RequestBody ChatCompletionGptRequest request
     ) {
         return ResponseDto.ok(chatService.completionChat(request));
+    }
+
+    @Operation(
+            summary = "검색어의 뉴스들의 긍정, 부정성을 판단",
+            description = "request 포멧에 맞춰서 요청을 해주세요"
+    )
+    @PostMapping("/completion/gradeChat")
+    public ResponseDto<?> newsGradeChatByGPT(
+            final @RequestBody List<ArticleDto> articles
+    ) {
+
+        // ChatGptService의 analyzeSentiment 메서드를 호출하여 List<GradeResponse> 응답을 받음
+        List<GradeResponse> gradeList = chatService.analyzeSentiment(articles);
+
+        // Map 형식으로 포맷하여 응답
+        Map<String, Object> result = new HashMap<>();
+        result.put("news", gradeList);
+
+        return ResponseDto.ok(result);
     }
 
 

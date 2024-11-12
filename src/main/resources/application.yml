@@ -7,14 +7,14 @@ spring:
 
     jpa:
         hibernate:
-            ddl-auto: none
+            ddl-auto: create-drop
         show-sql: true
 
-    sql:
-        init:
-            mode: always
-            schema-locations: classpath:db-script/schema.sql
-            data-locations: classpath:db-script/data.sql
+    #sql:
+     #   init:
+      #      mode: always
+       #     schema-locations: classpath:db-script/schema.sql
+        #    data-locations: classpath:db-script/data.sql
 
 
 
