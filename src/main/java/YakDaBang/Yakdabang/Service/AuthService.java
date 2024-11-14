@@ -8,9 +8,11 @@ import YakDaBang.Yakdabang.domain.entity.User;
 import YakDaBang.Yakdabang.global.exception.CommonException;
 import YakDaBang.Yakdabang.global.exception.ErrorCode;
 import YakDaBang.Yakdabang.repository.UserRepository;
+import YakDaBang.Yakdabang.security.info.UserPrincipal;
 import YakDaBang.Yakdabang.utility.JwtUtil;
 import YakDaBang.Yakdabang.utility.PasswordEncoder;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -78,5 +80,13 @@ public class AuthService {
         new_user.setRefreshToken(jwtTokenDto.refreshToken());*/
 
         return "회원가입이 완료되었습니다. 로그인을 진행해주세요.";
+    }
+
+    public Long getUserIdFromSecurity() {
+        Object principal =  SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal == null) {
+            throw new CommonException(ErrorCode.INVALID_HEADER_ERROR);
+        }
+        return ((UserPrincipal) principal).getId();
     }
 }
