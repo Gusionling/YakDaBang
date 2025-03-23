@@ -51,18 +51,6 @@ public class NewsController {
         return ResponseDto.ok("검색어의 트랜드를 받아옵니다.");
     }
 
-
-    @Operation(
-            summary = "검색어의 뉴스들의 긍정, 부정성을 판단하고 받은 약의 효능을 보여줄 수 있는 생활 습관 추천",
-            description = "GPT야 도와줘....! 너만 믿을게"
-    )
-    @PostMapping("/completion/simpleChat")
-    public ResponseDto<?> easyChatByGPT(
-            final @RequestBody ChatCompletionGptRequest request
-    ) {
-        return ResponseDto.ok(chatService.completionChat(request));
-    }
-
     @Operation(
             summary = "검색어의 뉴스들의 긍정, 부정성을 판단",
             description = "request 포멧에 맞춰서 요청을 해주세요 아래는 예시 입니다" +
